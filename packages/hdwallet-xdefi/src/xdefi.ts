@@ -2,14 +2,6 @@ import * as core from "@shapeshiftoss/hdwallet-core";
 import * as eth from "./ethereum";
 import _ from "lodash";
 
-class XDeFiTransport extends core.Transport {
-  public async getDeviceID() {
-    return "xdefi:0";
-  }
-
-  public async call(...args: any[]): Promise<any> {}
-}
-
 export function isXDeFi(wallet: core.HDWallet): wallet is XDeFiHDWallet {
   return _.isObject(wallet) && (wallet as any)._isXDeFi;
 }
@@ -19,7 +11,6 @@ export class XDeFiHDWallet implements core.HDWallet, core.ETHWallet {
   readonly _supportsETHInfo = true;
   readonly _isXDeFi = true;
 
-  transport: core.Transport = new XDeFiTransport(new core.Keyring());
   info: XDeFiHDWalletInfo & core.HDWalletInfo;
   ethAddress?: string | null;
   provider: any;
