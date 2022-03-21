@@ -8,6 +8,7 @@ class XDeFiTransport extends core.Transport {
     return "xdefi:0";
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   public async call(...args: any[]): Promise<any> {}
 }
 
@@ -59,6 +60,7 @@ export class XDeFiHDWalletInfo implements core.HDWalletInfo, core.ETHWalletInfo 
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public ethNextAccountPath(msg: core.ETHAccountPath): core.ETHAccountPath | undefined {
     // TODO: What do we do here?
     return undefined;
@@ -163,18 +165,22 @@ export class XDeFiHDWallet implements core.HDWallet, core.ETHWallet {
     return { msg: msg.msg };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async sendPin(pin: string): Promise<void> {
     // no concept of pin in XDeFi
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async sendPassphrase(passphrase: string): Promise<void> {
     // cannot send passphrase to XDeFi. Could show the widget?
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async sendCharacter(charater: string): Promise<void> {
     // no concept of sendCharacter in XDeFi
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async sendWord(word: string): Promise<void> {
     // no concept of sendWord in XDeFi
   }
@@ -183,14 +189,18 @@ export class XDeFiHDWallet implements core.HDWallet, core.ETHWallet {
     // no concept of cancel in XDeFi
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   public async wipe(): Promise<void> {}
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   public async reset(msg: core.ResetDevice): Promise<void> {}
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async recover(msg: core.RecoverDevice): Promise<void> {
     // no concept of recover in XDeFi
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async loadDevice(msg: core.LoadDevice): Promise<void> {
     // TODO: Does XDeFi allow this to be done programatically?
   }
@@ -199,6 +209,7 @@ export class XDeFiHDWallet implements core.HDWallet, core.ETHWallet {
     return this.info.describePath(msg);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async getPublicKeys(msg: Array<core.GetPublicKey>): Promise<Array<core.PublicKey | null>> {
     // Ethereum public keys are not exposed by the RPC API
     return [];
@@ -208,6 +219,7 @@ export class XDeFiHDWallet implements core.HDWallet, core.ETHWallet {
     return true;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   public async disconnect(): Promise<void> {}
 
   public async ethSupportsNetwork(chainId = 1): Promise<boolean> {
