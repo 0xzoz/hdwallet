@@ -209,7 +209,7 @@ describe("XDeFiWHDWallet", () => {
   });
 
   it("should create instance of XDeFiHD wallet", () => {
-    const wallet = create();
+    wallet = create();
     expect(wallet).toBeInstanceOf(XDeFiHDWallet);
   });
 });

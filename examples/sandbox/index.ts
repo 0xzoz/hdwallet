@@ -133,8 +133,8 @@ $portis.on("click", async (e) => {
   let deviceId = "nothing";
   try {
     deviceId = await wallet.getDeviceID();
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
   }
   $("#keyring select").val(deviceId);
 });
@@ -154,8 +154,8 @@ $metaMask.on("click", async (e) => {
   try {
     deviceID = await wallet.getDeviceID();
     $("#keyring select").val(deviceID);
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
   }
 });
 $xdefi.on("click", async (e) => {
@@ -166,8 +166,8 @@ $xdefi.on("click", async (e) => {
   try {
     deviceID = await wallet.getDeviceID();
     $("#keyring select").val(deviceID);
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
   }
 });
 
@@ -986,7 +986,6 @@ $thorchainSignSwap.on("click", async (e) => {
   const routerContractAddress = "0x0000000000000000000000000000000000000000";
   const vaultAddress = "0x0000000000000000000000000000000000000000";
   let tx = {};
-  let res = {};
   const memo = `SWAP:${$thorchainDestChain.val()}:${$thorchainDestAddress.val()}:${$thorchainAmount.val()}`;
   switch ($thorchainSourceChain.val()) {
     case "BTC.BTC":
@@ -1044,7 +1043,7 @@ $thorchainSignSwap.on("click", async (e) => {
         tx["data"] = routerContract.methods
           .deposit(vaultAddress, "0x0000000000000000000000000000000000000000", 0, memo)
           .encodeABI();
-        res = await wallet.ethSignTx(tx as any);
+        const res = await wallet.ethSignTx(tx as any);
         $thorchainSwapResults.val(JSON.stringify(res));
       } else {
         const label = await wallet.getLabel();
@@ -1110,7 +1109,7 @@ $thorchainSignSwap.on("click", async (e) => {
         tx = thorchainEthereumBaseTx;
         tx["addressNList"] = core.bip32ToAddressNList("m/44'/60'/0'/0/0");
         tx["data"] = "0x";
-        res = await wallet.ethSignTx(tx as any);
+        const res = await wallet.ethSignTx(tx as any);
         $thorchainSwapResults.val(JSON.stringify(res));
       } else {
         const label = await wallet.getLabel();
@@ -1145,7 +1144,6 @@ $thorchainSignAddLiquidity.on("click", async (e) => {
   const routerContractAddress = "0x0000000000000000000000000000000000000000";
   const vaultAddress = "0x0000000000000000000000000000000000000000";
   let tx = {};
-  let res = {};
   const memo = `ADD:${$thorchainLiquidityAsset.val()}:${$thorchainLiquidityPoolAddress.val()}}`;
   switch ($thorchainLiquidityAsset.val()) {
     case "BTC.BTC":
@@ -1203,7 +1201,7 @@ $thorchainSignAddLiquidity.on("click", async (e) => {
           .deposit(vaultAddress, "0x0000000000000000000000000000000000000000", 0, memo)
           .encodeABI();
         console.info(tx);
-        res = await wallet.ethSignTx(tx as any);
+        const res = await wallet.ethSignTx(tx as any);
         $thorchainAddLiquidityResults.val(JSON.stringify(res));
       } else {
         const label = await wallet.getLabel();
@@ -1281,7 +1279,7 @@ $thorchainSignAddLiquidity.on("click", async (e) => {
         tx["data"] = "0x";
         tx["to"] = $thorchainLiquidityPoolAddress.val();
         tx["value"] = $thorchainLiquidityAmount.val();
-        res = await wallet.ethSignTx(tx as any);
+        const res = await wallet.ethSignTx(tx as any);
         $thorchainAddLiquidityResults.val(JSON.stringify(res));
       } else {
         const label = await wallet.getLabel();
