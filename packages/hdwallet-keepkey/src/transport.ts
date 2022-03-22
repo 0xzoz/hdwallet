@@ -3,7 +3,6 @@ import * as Types from "@keepkey/device-protocol/lib/types_pb";
 import * as core from "@shapeshiftoss/hdwallet-core";
 import * as jspb from "google-protobuf";
 
-import { EXIT_TYPES } from "./responseTypeRegistry";
 import { messageNameRegistry, messageTypeRegistry } from "./typeRegistry";
 import { SEGMENT_SIZE } from "./utils";
 
@@ -148,10 +147,7 @@ export class Transport extends core.Transport {
     return this.callInProgress.main;
   }
 
-  public async handleCancellableResponse(messageType: any) {
-    const event = (await core
-      .takeFirstOfManyEvents(this, [String(messageType), ...EXIT_TYPES])
-      .toPromise()) as core.Event;
+  public async handleCancellableResponse() {
     return this.readResponse(false);
   }
 
@@ -216,7 +212,7 @@ export class Transport extends core.Transport {
         })
       );
       this.userActionRequired = true;
-      return this.handleCancellableResponse(Messages.MessageType.MESSAGETYPE_PINMATRIXACK);
+      return this.handleCancellableResponse();
     }
 
     if (msgTypeEnum === Messages.MessageType.MESSAGETYPE_PASSPHRASEREQUEST) {
@@ -228,7 +224,7 @@ export class Transport extends core.Transport {
         })
       );
       this.userActionRequired = true;
-      return this.handleCancellableResponse(Messages.MessageType.MESSAGETYPE_PASSPHRASEACK);
+      return this.handleCancellableResponse();
     }
 
     if (msgTypeEnum === Messages.MessageType.MESSAGETYPE_CHARACTERREQUEST) {
@@ -240,7 +236,7 @@ export class Transport extends core.Transport {
         })
       );
       this.userActionRequired = true;
-      return this.handleCancellableResponse(Messages.MessageType.MESSAGETYPE_CHARACTERACK);
+      return this.handleCancellableResponse();
     }
 
     if (msgTypeEnum === Messages.MessageType.MESSAGETYPE_WORDREQUEST) {
@@ -252,7 +248,7 @@ export class Transport extends core.Transport {
         })
       );
       this.userActionRequired = true;
-      return this.handleCancellableResponse(Messages.MessageType.MESSAGETYPE_WORDACK);
+      return this.handleCancellableResponse();
     }
 
     return event;
