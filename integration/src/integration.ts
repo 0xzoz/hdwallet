@@ -21,10 +21,6 @@ import { terraTests } from "./terra";
 import { kavaTests } from "./kava";
 import { WalletSuite } from "./wallets/suite";
 
-import { ethereum } from "./wallets/mocks/@metamask/detect-provider";
-
-jest.mock("@metamask/detect-provider", () => async () => Promise.resolve(ethereum));
-
 /**
  * We run all the integration tests against every device, even though some
  * devices might not support a given Coin mixin. Tests in the various suites

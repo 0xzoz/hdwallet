@@ -34,7 +34,7 @@ export class MetaMaskAdapter {
       console.error("Could not get MetaMask accounts. ");
       throw error;
     }
-    const wallet = new MetaMaskHDWallet();
+    const wallet = new MetaMaskHDWallet(provider);
     await wallet.initialize();
     const deviceID = await wallet.getDeviceID();
     this.keyring.add(wallet, deviceID);

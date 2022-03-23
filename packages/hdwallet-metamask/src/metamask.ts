@@ -1,7 +1,6 @@
 import * as core from "@shapeshiftoss/hdwallet-core";
 import * as eth from "./ethereum";
 import _ from "lodash";
-import detectEthereumProvider from "@metamask/detect-provider";
 
 class MetaMaskTransport extends core.Transport {
   public async getDeviceID() {
@@ -53,8 +52,9 @@ export class MetaMaskHDWallet implements core.HDWallet, core.ETHWallet {
   ethAddress?: string | null;
   provider: any;
 
-  constructor() {
+  constructor(provider: unknown) {
     this.info = new MetaMaskHDWalletInfo();
+    this.provider = provider
   }
 
   async getFeatures(): Promise<Record<string, any>> {
@@ -77,14 +77,8 @@ export class MetaMaskHDWallet implements core.HDWallet, core.ETHWallet {
     return Promise.resolve("MetaMask");
   }
 
-  public async initialize(): Promise<any> {
-    try {
-      this.provider = await detectEthereumProvider({ mustBeMetaMask: true, silent: false, timeout: 3000 });
-    } catch (e) {
-      console.error(e);
-    }
-
-    return Promise.resolve();
+  public async initialize(): Promise<void> {
+    // nothing to initialize
   }
 
   public hasOnDevicePinEntry(): boolean {
@@ -329,12 +323,4 @@ export class MetaMaskHDWalletInfo implements core.HDWalletInfo, core.ETHWalletIn
   public ethGetAccountPaths(msg: core.ETHGetAccountPath): Array<core.ETHAccountPath> {
     return eth.ethGetAccountPaths(msg);
   }
-}
-
-export function info() {
-  return new MetaMaskHDWalletInfo();
-}
-
-export function create(): MetaMaskHDWallet {
-  return new MetaMaskHDWallet();
 }
