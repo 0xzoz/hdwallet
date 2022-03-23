@@ -3,21 +3,9 @@ import * as eth from "./ethereum";
 import _ from "lodash";
 import detectEthereumProvider from "@metamask/detect-provider";
 
-class MetaMaskTransport extends core.Transport {
-  public async getDeviceID() {
-    return "metamask:0";
-  }
-
-  public call(...args: any[]): Promise<any> {
-    return Promise.resolve();
-  }
-}
-
 export function isMetaMask(wallet: core.HDWallet): wallet is MetaMaskHDWallet {
   return _.isObject(wallet) && (wallet as any)._isMetaMask;
 }
-
-type HasNonTrivialConstructor<T> = T extends { new (): any } ? never : T;
 
 export class MetaMaskHDWallet implements core.HDWallet, core.ETHWallet {
   readonly _supportsETH = true;
@@ -48,7 +36,6 @@ export class MetaMaskHDWallet implements core.HDWallet, core.ETHWallet {
   readonly _supportsTerra = false;
   readonly _supportsTerraInfo = false;
 
-  transport: core.Transport = new MetaMaskTransport(new core.Keyring());
   info: MetaMaskHDWalletInfo & core.HDWalletInfo;
   ethAddress?: string | null;
   provider: any;
